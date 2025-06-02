@@ -19,7 +19,7 @@ module.exports = (req, res) => {
     timestamp: new Date().toISOString(),
   };
 
-  const filePath = path.join(process.cwd(), 'entries.json');
+  const filePath = path.join(pr'tmp'/, 'entries.json';
 
   let entries = [];
   if (fs.existsSync(filePath)) {
