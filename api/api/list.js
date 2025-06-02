@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     return res.status(405).end('Method Not Allowed');
   }
 
-  const filePath = path.join(process.cwd(), 'entries.json');
+  const filePath = path.join(pr'tmp'/, 'entries.json';
 
   let entries = [];
   if (fs.existsSync(filePath)) {
