@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Code Beam Lottery</title>
+  <style>
+    body{font-family:Arial, sans-serif;max-width:600px;margin:40px auto;padding:0 20px;}
+    h1{color:#333;}
+    label{display:block;margin-top:1em;}
+    input{padding:8px;width:100%;box-sizing:border-box;}
+    button{margin-top:1em;padding:10px 20px;font-size:1em;}
+    #message{margin-top:1em;color:green;}
+  </style>
+</head>
+<body>
+  <h1>Win a signed copy of ‘The BEAM Book’</h1>
+  <form id="entryForm">
+    <label>
+      Name (required):
+      <input type="text" name="name" required>
+    </label>
+    <label>
+      Email (optional):
+      <input type="email" name="email">
+    </label>
+    <button type="submit">Enter</button>
+  </form>
+  <div id="message"></div>
+
+  <script>
+    document.getElementById('entryForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim()
+      };
+      if(!data.name){
+        alert('Name is required');
+        return;
+      }
+      try{
+        const res = await fetch('/api/enter', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(data)
+        });
+        if(res.status === 204){
+          form.reset();
+          document.getElementById('message').textContent = 'Thanks—good luck!';
+        }else{
+          document.getElementById('message').textContent = 'Something went wrong. Please try again.';
+        }
+      }catch(err){
+        document.getElementById('message').textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
